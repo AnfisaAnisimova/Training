@@ -10,7 +10,7 @@ class Method(StrEnum):
 
 
 class BaseRequest:
-    def __init__(self, url: str, method: Method, params: dict | None = None, body: dict | None = None):
+    def __init__(self, url: str, method: Method, params: dict | None = None, body: dict | None = None) -> None:
         self._url = url
         self._method = self.method_validation(method)
         self._params = params
@@ -46,7 +46,7 @@ class BaseRequest:
 
 
 class Request(BaseRequest):
-    def __init__(self, url: str, method: Method, params: dict | None = None, body: dict | None = None):
+    def __init__(self, url: str, method: Method, params: dict | None = None, body: dict | None = None) -> None:
         super().__init__(url, method, params, body)
 
         if len(self._params) > 5:
