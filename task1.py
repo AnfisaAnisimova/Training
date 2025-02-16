@@ -12,16 +12,16 @@ class Method(StrEnum):
 class BaseRequest:
     def __init__(self, url: str, method: Method, params: dict | None = None, body: dict | None = None) -> None:
         self._url = url
-        self._method = self.method_validation(method)
+        self._method = self._method_validation(method)
         self._params = params
-        self._body = self.body_validation(body, method)
+        self._body = self._body_validation(body, method)
 
-    def method_validation(self, method):
+    def _method_validation(self, method):
         if method not in [Method.GET, Method.POST]:
             raise Exception("Недопустимый метод")
         return method
 
-    def body_validation(self, body, method):
+    def _body_validation(self, body, method):
         if method == Method.GET and body:
             raise Exception("Невозможно задать тело запроса для метода GET")
         return body
@@ -57,7 +57,7 @@ class Request(BaseRequest):
                 self.url):
             raise Exception("Неправильный формат url")
 
-    def method_validation(self, method):
+    def _method_validation(self, method):
         if method not in Method.__members__.values():
             raise Exception("Недопустимый метод")
         return method
@@ -93,3 +93,4 @@ print(request2.body)
 
 # r3 = Request("http://url.com", "PUT", {'1': 'ddd', '2': 'qqq', '3': 'ttt', '4': 'tty', '5': 'nbg'}, {"body": "body"})
 # print(r3.body)
+
